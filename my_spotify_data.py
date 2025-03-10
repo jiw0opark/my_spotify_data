@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[120]:
-
 
 import numpy as np
 import pandas as pd
@@ -52,19 +50,16 @@ print("Number of Values:", clean_df.shape[0], "\nNumber of Features:", clean_df.
 clean_df.to_csv('cleaned_spotify.csv', index=False)
 
 
-# In[121]:
 
 
+#histogram of listening time
 plt.hist(df['total_minutes_played'],bins=5, color='steelblue', edgecolor='darkblue')
 plt.title('Distribution of Listening Time (Minutes)')
 plt.xlabel('Minutes Played')
 plt.ylabel('Frequency')
 plt.show()
 
-
-# In[111]:
-
-
+#gives count of top10 most played songs
 top10_songs = clean_df['master_metadata_track_name'].value_counts().head(10)
 top10_songs.plot(kind = 'bar', color = 'palevioletred')
 plt.title('Top 10 Most Played Songs')
@@ -73,10 +68,7 @@ plt.ylabel('Play Count')
 plt.xticks(rotation=45, ha='right')
 plt.show()
 
-
-# In[112]:
-
-
+#shows top 7 most played artists
 top7_artists = clean_df['master_metadata_album_artist_name'].value_counts().head(7)
 top7_artists.plot(kind = 'bar', color = 'rosybrown')
 plt.title('Top 7 Most Played Artist')
@@ -85,10 +77,7 @@ plt.ylabel('Play Count')
 plt.xticks(rotation=45, ha='right')
 plt.show()
 
-
-# In[113]:
-
-
+#shows top 5 most played album names
 top5_albums = clean_df['master_metadata_album_album_name'].value_counts().head(5)
 top5_albums.plot(kind = 'bar', color = 'darkseagreen')
 plt.title('Top 5 Most Played Albums')
@@ -97,29 +86,18 @@ plt.ylabel('Play Count')
 plt.xticks(rotation=45, ha='right')
 plt.show()
 
-
-# In[122]:
-
-
-# print(clean_df['timestamp'].head())
-
-# clean_df['hour'] = clean_df['timestamp'].dt.hour
-
-# loc_tz = pytz.timezone('US/Eastern')
-# clean_df['timestamp'] = clean_df['timestamp'].dt.tz_convert(loc_tz)
-# clean_df['hour'] = clean_df['timestamp'].dt.hour
-
 print(clean_df['local_hour'].value_counts())
 
+#clean dataset by hour of listening
 count_hourly = clean_df.groupby('local_hour').size()
 
-
+#plot graph for listening patterns for hour of the day 
 plt.figure(figsize=(10,6))
 count_hourly.plot(kind='line', marker='x', color='purple', linewidth=2)
 plt.title('Music Listening Pattern by Hour of Day')
 plt.xlabel('Hour of Day')
 plt.ylabel('Number of Tracks Played')
-plt.xticks(range(0, 24))  # Ensure all 24 hours are shown
+plt.xticks(range(0, 24))  #make sure all 24 hours are shown
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.show()
 
