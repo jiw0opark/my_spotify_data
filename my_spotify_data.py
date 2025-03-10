@@ -27,23 +27,6 @@ df['total_minutes_played'] = df['ms_played'] * 0.00001666666
 df.rename(columns={'ts':'timestamp'}, inplace=True)
 
 df['timestamp'] = pd.to_datetime(df['timestamp'])
-#df['timestamp'] = df['timestamp'].dt.tz_localize('UTC')
-
-# timezone_map = {
-#     'KR' : 'Asia/Seoul',
-#     'US' : 'America/New_York'
-# }
-
-# def convert_timezone(row):
-#     country = row['conn_country']
-#     timezone = timezone_map.get(country)
-#     return row['timestamp'].tz_convert(timezone)
-    
-
-# df['timestamp_local'] = df.apply(convert_timezone, axis=1)
-# df['timestamp_local'] = pd.to_datetime(df['timestamp_local'], utc=True)
-
-# print(df['timestamp_local'].head())
 
 df['local_hour'] = df['timestamp'].dt.hour
 df['local_date'] = df['timestamp'].dt.date
